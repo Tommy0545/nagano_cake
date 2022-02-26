@@ -1,0 +1,24 @@
+<h2>商品一覧画面</h2>
+
+<%= link_to "+", new_admin_item_path %>
+
+  <p>商品ID</p>
+  <p>商品名</p>
+  <p>税抜き価格</p>
+  <p>ジャンル</p>
+  <p>ステータス</p>
+        
+<% @items.each do |item| %>
+         
+ <%= item.id %>
+ <%= link_to item.name, admin_item_path(item) %>
+ <%= item.price %>
+ 
+ <%= item.genre.name %>
+ <% if item.is_active? %>
+  <strong>販売中</strong>
+ <% else %>
+  <strong>販売停止中</strong>
+ <% end %>
+          
+<% end %>
