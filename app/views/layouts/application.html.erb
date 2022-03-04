@@ -34,7 +34,7 @@
             </li>
           <% elsif customer_signed_in? %>
             <li>
-              <%= link_to "マイページ", public_customer_path(current_customer), class:"btn btn-light  mr-2" %>
+              <%= link_to "マイページ", public_customers_my_page_path, class:"btn btn-light  mr-2" %>
             </li>
             <li>
               <%= link_to "商品一覧", public_items_path, class:"btn btn-light mr-2" %>
