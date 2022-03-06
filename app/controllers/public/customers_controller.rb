@@ -8,12 +8,9 @@ class Public::CustomersController < ApplicationController
    end
 
    def update
-    @customer = current_customer
-    if @customer.update(customer_params)
-     redirect_to public_customers_my_page_path
-    else
-     render "edit"
-    end
+     @customer = current_customer
+     @customer.update(customer_params)
+      redirect_to public_customers_my_page_path
    end
 
    def quit
@@ -22,10 +19,9 @@ class Public::CustomersController < ApplicationController
 
    def out
     @customer = current_customer
-    if @customer.update(is_deleted: true)
+    @customer.update(is_deleted: true)
      reset_session
-     redirect_to new_customer_registration_path
-    end 
+     redirect_to public_root_path
    end
 
 

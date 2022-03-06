@@ -1,0 +1,16 @@
+<h3>配送先編集</h3>
+
+<%= form_with model: @address, :url => {:action => :update} do |f| %>
+    <p><%= f.label :postal_code,"郵便番号" %>
+    <%= f.text_field :postal_code, autofocus: true %></p>
+
+  
+    <p><%= f.label :address,"住所" %>
+    <%= f.text_area :address %></p>
+  
+    <p><%= f.label :name,"宛名"%>
+    <%= f.text_field :name %></p>
+    
+    <%= f.submit"変更内容を保存" %>
+    
+<% end %>
