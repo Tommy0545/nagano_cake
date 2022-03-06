@@ -2,14 +2,17 @@
 
 <%= link_to "+", new_admin_item_path %>
 
-  <p>商品ID</p>
-  <p>商品名</p>
-  <p>税抜き価格</p>
-  <p>ジャンル</p>
-  <p>ステータス</p>
+  <p>
+   商品ID
+   商品名
+   税抜き価格
+   ジャンル
+   ステータス
+  </p>
         
 <% @items.each do |item| %>
          
+ <p>
  <%= item.id %>
  <%= link_to item.name, admin_item_path(item) %>
  <%= item.price %>
@@ -20,5 +23,6 @@
  <% else %>
   <strong>販売停止中</strong>
  <% end %>
+ </p>
           
 <% end %>

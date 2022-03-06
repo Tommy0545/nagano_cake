@@ -51,9 +51,9 @@ class Public::RegistrationsController < Devise::RegistrationsController
   #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
   # end
   
-def after_sign_up_path_forflunk 
+  def after_sign_up_path_for(resource)
     flash[:notice] = "新規登録に成功しました。"
-    customers_path(current_customer)
+    public_customers_my_page_path
   end
   # The path used after sign up.
   # def after_sign_up_path_for(resource)

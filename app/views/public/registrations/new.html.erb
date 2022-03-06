@@ -1,5 +1,7 @@
 <h3>新規会員登録</h3>
 
+<%= flash[:notice] %>
+
 <%= form_with model: @customer, url: customer_registration_path, local: true do |f| %>
 
     <div><%= f.label :名前 %></div>

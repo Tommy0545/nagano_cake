@@ -15,9 +15,11 @@ namespace :admin do
     get "/customers/my_page" => "customers#show", as: "customers_my_page"
     get "/customers/quit" => "customers#quit", as: "quit"
     patch "/customers/out" => "customers#out", as: "out"
+    
     resources :customers, only: [:edit, :update]
-    resources :cart_items, only: [:index, :update, :destroy, :create]
+    
     delete "/cart_items/destroy_all" => "cart_items#destroy_all", as: "destroy_all"
+    resources :cart_items, only: [:index, :update, :destroy, :create]
     
     resources :orders, only: [:new, :create, :index, :show]
     get "/orders/comfirm" => "orders#comfirm", as: "comfirm"
