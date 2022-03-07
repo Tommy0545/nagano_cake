@@ -10,7 +10,7 @@
           <p>￥<%= (@item.price * 1.1).floor %>円（税込）</p>
 
         <% if @item.is_active == TRUE %>
-          <%= form_with model:@cart_item, url: public_cart_items_path do |f| %>
+          <%= form_with model: @cart_items, url: public_cart_items_path do |f| %>
             <%= f.select :amount, *[1..10] %>
             <%= f.hidden_field :item_id, :value => @item.id %>
             <%= f.submit "カートに入れる" %>

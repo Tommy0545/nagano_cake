@@ -1,44 +1,48 @@
 class Public::CartItemsController < ApplicationController
-def create
-   @cart_item = CartItem.new(cart_item_params)
-   @items = Item.all
-   @item = current_customer.cart_items.find_by(item_id: @cart_item.item_id)
-  
-    redirect_to public_cart_items_path
-end
+before_action :authenticate_customer!
 
-def index
-  @customer = current_customer
-  @cart_item = current_customer.cart_items.all
-  
-end
+  def create
+    @cart_item = CartItem.new(cart_item_params)
+    @cart_item.customer = current_customer
+    if CartItem.find_by(item_id: params[:cart_item][:item_id]).present?
+      @cart_item = CartItem.find_by(item_id: params[:cart_item][:item_id])
+      @cart_item.amount += params[:cart_item][:amount].to_i
+      @cart_item.save
+      redirect_to public_cart_items_path
+    else
+      @cart_item.save
+      redirect_to public_cart_items_path
+    end
+  end
 
-def update
-   @cart_item = CartItem.find(params[:id])
-   @cart_item.update(cart_item_params)
-   redirect_to request.referer
+  def index
+    @cart_items = current_customer.cart_items
+    @total = @cart_items.inject(0) { |sum, item| sum + item.subtotal }
+  end
 
-end
-
-def destroy
+  def update
     @cart_item = CartItem.find(params[:id])
-    @cart_item.destroy
+    @cart_item.update(amount: params[:amount])
     redirect_to public_cart_items_path
-end
+  end
 
-def destroy_all
-    current_customer.cart_items.destroy_all
-    redirect_to public_items_path
-end
+  def destroy_all
+    @cart_items = CartItem.all
+    @cart_items.destroy_all
+    redirect_to public_cart_items_path
+  end
+
+  def destroy
+    @cart_items = CartItem.all
+    @cart_item = CartItem.find(params[:id])
+    @cart_item.delete
+    redirect_to public_cart_items_path
+  end
 
 
-
-
-private
-def cart_item_params
-    params.require(:cart_item).permit(:customer_id, :item_id, :amount, :cart_item)
-end
-  
-   
+  private
+  def cart_item_params
+      params.require(:cart_item).permit(:item_id, :customer_id, :amount)
+  end
 
 end

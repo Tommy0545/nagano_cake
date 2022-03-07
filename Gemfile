@@ -60,3 +60,5 @@ gem 'devise'
 
 #ページネーションの追加
 gem 'kaminari','~> 1.2.1'
+
+gem 'pry-byebug'

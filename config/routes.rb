@@ -19,8 +19,9 @@ namespace :admin do
     resources :customers, only: [:edit, :update]
     
     delete "/cart_items/destroy_all" => "cart_items#destroy_all", as: "destroy_all"
-    resources :cart_items, only: [:index, :update, :destroy,:create]
     post "cart_items/create"=>"cart_items#create",as: "create"
+    resources :cart_items, only: [:index, :update, :destroy,:create]
+    
     
     resources :orders, only: [:new, :create, :index, :show]
     get "/orders/comfirm" => "orders#comfirm", as: "comfirm"
