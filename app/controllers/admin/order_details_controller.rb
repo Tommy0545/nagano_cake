@@ -4,7 +4,7 @@ class Admin::OrderDetailsController < ApplicationController
     if @order_detail.update(order_detail_params)
     end 
     redirect_to admin_order_path(@order_detail.order)
-  end
+    end
 
   private
 

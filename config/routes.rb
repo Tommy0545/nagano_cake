@@ -22,10 +22,11 @@ namespace :admin do
     post "cart_items/create"=>"cart_items#create",as: "create"
     resources :cart_items, only: [:index, :update, :destroy,:create]
     
-    
-    resources :orders, only: [:new, :create, :index, :show]
-    get "/orders/comfirm" => "orders#comfirm", as: "comfirm"
+    get "/orders/confirm" => "orders#confirm", as: "confirm"
+    post "/orders/confirm" => "orders#confirm"
     get "/orders/thanx" => "orders#thanx", as: "thanx"
+    resources :orders, only: [:new, :create, :index, :show]
+    
     
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
     delete "/addresses/:id"=> "addresses#destroy",as: "addresses_destroy"
