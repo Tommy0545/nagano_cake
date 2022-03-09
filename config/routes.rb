@@ -22,9 +22,9 @@ namespace :admin do
     post "cart_items/create"=>"cart_items#create",as: "create"
     resources :cart_items, only: [:index, :update, :destroy,:create]
     
-    get "/orders/confirm" => "orders#confirm", as: "confirm"
-    post "/orders/confirm" => "orders#confirm"
     get "/orders/thanx" => "orders#thanx", as: "thanx"
+    post "/orders/thanx" => "orders#thanx"
+    post "/orders/confirm" => "orders#confirm",as: "confirm"
     resources :orders, only: [:new, :create, :index, :show]
     
     

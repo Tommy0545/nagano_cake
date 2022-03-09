@@ -26,8 +26,8 @@
 
   <%= f.radio_button :address_number, 2 %>
   <%= f.label :address_number_2, "新しいお届け先" %>
-   <%= f.label :post_code, "郵便番号(ハイフンなし)" %>
-   <%= f.text_field :post_code %>
+   <%= f.label :postal_code, "郵便番号(ハイフンなし)" %>
+   <%= f.text_field :post_new_code %>
    <%= f.label :address, "住所" %>
    <%= f.text_field :address,  size: 40 %>
    <%= f.label :name, "宛名" %>
@@ -36,7 +36,7 @@
 <% end %>
 
 
-    </tbody>
+ 
 
 
 </div>

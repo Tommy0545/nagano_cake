@@ -10,6 +10,8 @@ class CreateOrders < ActiveRecord::Migration[6.1]
       t.string    :address        , null: false
       t.string    :post_code      , null: false
       t.integer   :status         , null: false, default: 0
+      t.integer   :total_payment
+      
 
       t.timestamps
     end

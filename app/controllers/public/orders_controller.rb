@@ -22,9 +22,8 @@ class Public::OrdersController < ApplicationController
       order_detail.price = cart_item.item.price
       # カート情報を削除するので item との紐付けが切れる前に保存します
       order_detail.save
-    end
-    redirect_to orders_thanx_path
-    current_customer.cart_items.destroy_all
+     end
+   current_customer.cart_items.destroy_all
     # ユーザーに関連するカートのデータ(購入したデータ)をすべて削除します(カートを空にする)
   else
     @order = Order.new(order_params)
@@ -37,7 +36,7 @@ class Public::OrdersController < ApplicationController
     @order = current_customer.orders.new
     @order.payment_method = params[:order][:payment_method]
     if params[:order][:address_number] == "1"
-      @order.post_code = current_customer.post_code
+      @order.post_code = current_customer.postal_code
       @order.address = current_customer.address
       @order.name = current_customer.first_name + current_customer.last_name
     elsif params[:order][:address_number] == "2"
@@ -51,7 +50,7 @@ class Public::OrdersController < ApplicationController
 
 
 
-  def complete
+  def thanx
   end
 
 
@@ -68,7 +67,7 @@ class Public::OrdersController < ApplicationController
 
 private
     def order_params
-      params.require(:order).permit(:name, :address, :total_price, :shipping_cost, :total_payment, :post_code)
+      params.require(:order).permit(:name, :address, :post_code, :postage, :total_payment, :payment_method)
     end
     def address_params
       params.require(:order).permit(:name, :address)
