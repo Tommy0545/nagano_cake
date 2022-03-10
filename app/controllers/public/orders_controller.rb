@@ -4,32 +4,33 @@ class Public::OrdersController < ApplicationController
     @customer = current_customer
   end
 
- def create
+  # 購入を確定します
+def create # Order に情報を保存します
   @cart_items = current_customer.cart_items.all
-  # ログインユーザーのカートアイテムをすべて取り出して cart_items に入れます
+# ログインユーザーのカートアイテムをすべて取り出して cart_items に入れます
   @order = current_customer.orders.new(order_params)
-  # 渡ってきた値を @order に入れます
+# 渡ってきた値を @order に入れます
   if @order.save
-    # ここに至るまでの間にチェックは済ませていますが、念の為IF文で分岐させています
+# ここに至るまでの間にチェックは済ませていますが、念の為IF文で分岐させています
     @cart_items.each do |cart_item|
-      # 取り出したカートアイテムの数繰り返します
-      # order_item にも一緒にデータを保存する必要があるのでここで保存します
+# 取り出したカートアイテムの数繰り返します
+# order_item にも一緒にデータを保存する必要があるのでここで保存します
       order_detail = OrderDetail.new
       order_detail.item_id = cart_item.item_id
       order_detail.order_id = @order.id
       order_detail.amount = cart_item.amount
-      # 購入が完了したらカート情報は削除するのでこちらに保存します
+# 購入が完了したらカート情報は削除するのでこちらに保存します
       order_detail.price = cart_item.item.price
-      # カート情報を削除するので item との紐付けが切れる前に保存します
+# カート情報を削除するので item と@の紐付けが切れる前に保存します
       order_detail.save
-     end
-   current_customer.cart_items.destroy_all
-    # ユーザーに関連するカートのデータ(購入したデータ)をすべて削除します(カートを空にする)
+    end
+    @cart_items.destroy_all
+# ユーザーに関連するカートのデータ(購入したデータ)をすべて削除します(カートを空にする)
   else
     @order = Order.new(order_params)
     render :new
   end
- end
+end
 
   def confirm
     @cart_items = current_customer.cart_items.all
@@ -60,7 +61,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
-   @order =  Order.find(params[:id])
+   @order = Order.find(params[:id])
   
   end
 

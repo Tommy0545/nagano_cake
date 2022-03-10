@@ -70,7 +70,7 @@
 <% @totalprice = (@totle + @postage ) %>
 
 <!-- ユーザーには注文確定ボタンだけ表示します -->
-<%= form_with model: @order, url: public_thanx_path, local: true do |f| %>
+<%= form_with model: @order, url: public_orders_create_path , local: true do |f| %>
   <%= f.hidden_field :post_code %>
   <%= f.hidden_field :name %>
   <%= f.hidden_field :address %>

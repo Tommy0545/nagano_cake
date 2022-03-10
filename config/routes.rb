@@ -7,7 +7,7 @@ namespace :admin do
     resources :orders, only: [:show, :update]
     resources :order_details, only: [:update]
   end
-  namespace :public do
+namespace :public do
     root to: 'homes#top'
     get "/homes/about" => "homes#about", as: "about"
     resources :items, only: [:index, :show]
@@ -23,7 +23,7 @@ namespace :admin do
     resources :cart_items, only: [:index, :update, :destroy,:create]
     
     get "/orders/thanx" => "orders#thanx", as: "thanx"
-    post "/orders/thanx" => "orders#thanx"
+    post "/orders/create" => "orders#create", as: "orders_create"
     post "/orders/confirm" => "orders#confirm",as: "confirm"
     resources :orders, only: [:new, :create, :index, :show]
     

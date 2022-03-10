@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<div class="col-md-8 offset-md-1">
+   <% @total =0 %>
+   <% @order.order_details.each do |order_detail| %>
+   <% order_detail.subtotal %> <% @total += order_detail.subtotal %>
+   <% end %>
+   <% @total .to_s(:delimited)%>
+
+ <h4>注文履歴詳細</h4>
+<div = ”information”>
+ <table class="table table-hover information">
+  <thead>
+  </thead>
+    <tbody>
+      <p>注文情報</p>
+         <tr>
+           <td>
+             <td>注文日</td><td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+          </td>
+         </tr>
+
+         <tr>
+          <td>
+             <td>配送先</td><td>〒<%= @order.post_code.insert(3, "-") %> <%= @order.address %> <%= @order.name %></td>
+          </td>
+         </tr>
+
+         <tr>
+          <td>
+              <td>支払方法</td><td><%= @order.payment_method %></td>
+          </td>
+         </tr>
+   </tbody>
+ </table>
+
+ <table class="table table-hover table-inverse">
+  <thead>
+  </thead>
+    <tbody>
+      <p>請求情報</p>
+         <tr>
+           <td>
+             <td>商品合計</td><td><%= @total .to_s(:delimited)%></td>
+           </td>
+         </tr>
+
+         <tr>
+           <td>
+             <td>配送料</td><td><%= @order.postage %></td>
+           </td>
+         </tr>
+
+         <tr>
+          <td>
+              <td>ご請求額</td><td><%= @order.total_payment.to_s(:delimited) %></td>
+          </td>
+         </tr>
+   </tbody>
+ </table>
+</div>
+
+ <table class="table table-hover table-inverse">
+  <thead>
+     <tr>
+      <th>商品</th>
+      <th>単価（税込）</th>
+      <th>個数</th>
+      <th>小計</th>
+     </tr>
+  </thead>
+
+  <tbody>
+   <p>注文内容</p>
+
+   <% @order.order_details.each do |order_detail| %>
+         <tr>
+             <td> <%= order_detail.item.name %> </td>
+             <td><%= order_detail.item.with_tax_price.to_s(:delimited)%> </td>
+             <td><%= order_detail.amount %></td>
+             <td><%= order_detail.subtotal %>  </td>
+        </tr>
+     <% end %>
+   </tbody>
+ </table>
+
+
+</div>
+</div>
+</main>

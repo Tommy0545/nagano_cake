@@ -19,7 +19,7 @@
    <%= order.created_at.strftime('%Y/%m/%d') %>
   </td>
   <td>
-　  〒<%= order.postal_code %> <%= order.address %> <%= order.name %>
+　  〒<%= order.post_code %> <%= order.address %> <%= order.name %>
   </td>
   <td>
    <% order.order_details.each do |order_detail| %>
@@ -31,7 +31,7 @@
  　　<%= order.total_payment %>円
   </td>
   <td>
-   <%= link_to "表示する", order_path(order.id) ,class: 'btn btn-success btn-sm' %>
+   <%= link_to "表示する", public_order_path(order.id) ,class: 'btn btn-success btn-sm' %>
   </td>
 
  </div>
