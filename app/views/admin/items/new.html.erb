@@ -1,29 +1,47 @@
- <h2>商品新規登録画面</h2>
+ <% if @item.errors.any? %>
+  <%= @item.errors.count %>errors prohibited this obj from being saved:
+  <ul>
+    <% @item.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
  
+<h3 class="m-5">商品新規登録</h3>
+<div class="mx-auto" style="width: 700px;">
   <%= form_with model: @item, url: admin_items_path, local: true do |f| %>
    
-    <p><%= f.label :商品画像 %></p>
-    <p><%= f.file_field :image, accept: "image/*" %></p>
-    <p><%= f.hidden_field :image_id %></p>
-    <p><%= f.label :商品名 %></p>
-    <p><%= f.text_field :name, placeholder: "商品名" %></p>
-    <p><%= f.label :商品説明 %></p>
-    <p><%= f.text_area :introduction, placeholder: "ここに説明文を記述します" %></p>
-    <p><%= f.label :ジャンル %></p>
-    <p><%= f.collection_select(:genre_id, Genre.all, :id, :name, {include_blank: "--選択してください--"}) %></p>
-    
-     
-     <p><%= f.label :税抜価格 %></p>
-     <%= f.text_field :price, placeholder: "1000" %>
-     <span>円</span>
+    <div class="my-4">
+      <span class="mx-5"><%= f.label :image, "商品画像" %></span>
+      <%= f.file_field :image, accept:"image/*" %>
+    </div>
+    <%= f.hidden_field :image_id %>
+    <div class="my-4">
+      <span class="mx-5"><%= f.label :name, "商品名　" %></span>
+      <%= f.text_field :name, size:47 %>
+    </div>
+    <div class="my-4">
+      <span class="mx-5"><%= f.label :introduction, "商品説明" %></span>
+      <%= f.text_area :introduction, placeholder: "ここに説明文を記述します" %>
+    </div>
+    <div class="my-4">
+      <span class="mx-5"><%= f.label :genre_id, "ジャンル" %></span>
+      <%= f.collection_select(:genre_id, Genre.all, :id, :name, {include_blank: "--選択してください--"}) %>
+    </div>
+    <div class="my-4">
+      <span class="mx-5"><%= f.label :price, "税抜価格" %></span>
+      <%= f.text_field :price, size:47 %>円
+    </div>
 
+    <div class="my-4">
+     <span class="mx-5"><%= f.label :販売ステータス %></span>
+        <span class="mx-5"><%= f.radio_button :is_active, :true %>販売中</span>
+        
+        <span class="mx-5"><%= f.radio_button :is_active, :false %>販売中止</span>
+    </div>
     
-     <p><%= f.label :販売ステータス %></p>
-        <%= f.radio_button :is_active, :true %>
-        <%= f.label :is_active, "販売中" %>
-        <%= f.radio_button :is_active, :false %>
-        <%= f.label :is_active, "販売停止中" %>
-    
-     <p><%= f.submit "新規登録" %></p>
-  
+     <div class="mx-5">
+      <%= f.submit "新規登録", class: 'btn btn-primary' %>
+    </div>
   <% end %>
+</div>

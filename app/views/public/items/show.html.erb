@@ -1,20 +1,17 @@
-
-        <%= image_tag @item.image,size:"300×300" %>
-      
-      
-          <h3><%= @item.name %></h3>
-        
-          <p><%= @item.introduction %> </p>
-
-       
-          <p>￥<%= (@item.price * 1.1).floor %>円（税込）</p>
-
+<div class="col-md-3 m-5">
+      <%= image_tag @item.image,size:"200×200" %>
+</div>
+<div class="col-md-3 m-5">
+    <div class="m-3"><%= @item.name %></div>
+    <div class="m-3"><%= @item.introduction %></div>
+    <div class="mx-5">￥<%= @item.price.to_s(:delimited) %>(税込)</div>
+    <div class="m-3">
         <% if @item.is_active == TRUE %>
           <%= form_with model: @cart_items, url: public_cart_items_path do |f| %>
             <%= f.select :amount, *[1..10] %>
             <%= f.hidden_field :item_id, :value => @item.id %>
             <%= f.submit "カートに入れる" %>
-          <% end %>
-          
+            <% end %>
         <% end %>
-      
+    </div>
+</div>

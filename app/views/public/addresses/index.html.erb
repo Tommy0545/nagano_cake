@@ -1,35 +1,52 @@
-<h3>配送先登録/一覧</h3>
-
-<%= form_with model: @address, :url => {:action => :create} do |f| %>
-    <p><%= f.label :postal_code,"郵便番号（ハイフンなし）" %>
-    <%= f.text_field :postal_code, autofocus: true %></p>
-  
-    <p><%= f.label :address,"住所" %>
-    <%= f.text_area :address %></p>
-  
-    <p><%= f.label :name,"宛名"%>
-    <%= f.text_field :name %></p>
-    
-    <%= f.submit"新規登録" %>
-    
-<% end %>
-
-      <p>
-          郵便番号
-          住所
-          宛名
-      </p>
-    
-    <% @addresses.each do |address| %>
-    
-      <p>
-        <%= address.postal_code %>
-        <%= address.address %>
-        <%= address.name %>
-        <%= link_to "編集する" ,edit_public_address_path(address.id) %>
-      <%= link_to "削除する" ,public_addresses_destroy_path(address.id) ,method: :delete  %>
-      </p>
-      
-      
-        
+<% if @address.errors.any? %>
+  <%= @address.errors.count %>errors prohibited this obj from being saved:
+  <ul>
+    <% @address.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
     <% end %>
+  </ul>
+<% end %>
+<h3 class="m-5">配送先登録/一覧</h3>
+<div class="mx-5">
+  <%= form_with model: @address, :url => {:action => :create} do |f| %>
+    <div class="my-4">
+      <span class="mx-5"><%= f.label :postal_code,"郵便番号（ハイフンなし）" %></span>
+      <%= f.text_field :postal_code, autofocus: true %>
+    </div>
+  
+    <div class="my-4">
+      <span class="mx-5"><%= f.label :address,"住所" %></span>
+      <%= f.text_area :address %>
+    </div>
+  
+    <div class="my-4">
+      <span class="mx-5"><%= f.label :name,"宛名"%></span>
+      <%= f.text_field :name %>
+      <%= f.submit "新規登録", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>郵便番号</th>
+        <th>住所</th>
+        <th>宛名</th>
+        <th></th>
+      </tr>
+    </thead>
+    <% @addresses.each do |address| %>
+      <tbody>
+        <tr>
+          <td><%= address.postal_code %></td>
+          <td><%= address.address %></td>
+          <td><%= address.name %></td>
+          <td>
+          <%= link_to "編集する" ,edit_public_address_path(address.id), class: 'btn btn-primary' %>
+          <%= link_to "削除する" ,public_addresses_destroy_path(address.id) ,method: :delete, class: 'btn btn-primary'  %>
+          </td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+</div>

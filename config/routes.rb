@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+root to: 'public/homes#top'
 namespace :admin do
     root to: "homes#top"
     resources :items
     resources :genres, only: [:index, :create, :edit, :update]
     resources :customers, only: [:index, :show, :edit, :update]
-    resources :orders, only: [:show, :update]
+    
+    resources :orders, only: [:show, :index, :update]
     resources :order_details, only: [:update]
   end
 namespace :public do
@@ -22,7 +24,7 @@ namespace :public do
     post "cart_items/create"=>"cart_items#create",as: "create"
     resources :cart_items, only: [:index, :update, :destroy,:create]
     
-    get "/orders/thanx" => "orders#thanx", as: "thanx"
+    post "/orders/thanx" => "orders#thanx", as: "thanx"
     post "/orders/create" => "orders#create", as: "orders_create"
     post "/orders/confirm" => "orders#confirm",as: "confirm"
     resources :orders, only: [:new, :create, :index, :show]

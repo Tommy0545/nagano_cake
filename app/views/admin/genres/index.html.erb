@@ -1,28 +1,36 @@
-<div>
-  <h3>ジャンル一覧・追加</h3>
-     <%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
-        <div>
-          <%= f.label :name, "ジャンル名" %>
-          <%= f.text_field :name, class:"genre_name" %>
-        </div>
-        <%= f.submit '新規登録', class:"btn btn-success" %>
-      <% end %>
+<% if @genre.errors.any? %>
+  <%= @genre.errors.count %>errors prohibited this obj from being saved:
+  <ul>
+    <% @genre.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+<h3 class="m-5">ジャンル一覧・追加</h3>
+ <div class="mx-auto" style="width: 700px;">
+    <%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
+      <div class="my-4">
+        <span class="mx-3"><%= f.label :name, "ジャンル名" %></span>
+        <%= f.text_field :name %>
+        <span class="mx-3"><%= f.submit '新規登録', class: 'btn btn-primary' %></span>
+      </div>
+    <% end %>
 </div>
-
-<div>
-  <table>
+<div class="mx-5" style="width: 500px;">
+  <table class="table table-hover table-inverse">
     <thead>
       <tr>
         <th>ジャンル</th>
+        <th></th>
       </tr>
     </thead>
+    <% @genres.each do |genre| %>
     <tbody>
-      <% @genres.each do |genre| %>
-        <tr>
-          <td><%= genre.name %></td>
-          <td><%= link_to "編集する", edit_admin_genre_path(genre.id) %></td>
-        </tr>
-      <% end %>
+      <tr>
+        <td><%= genre.name %></td>
+        <td><%= link_to '編集する', edit_admin_genre_path(genre), class: 'btn btn-primary' %></td>
+      </tr>
     </tbody>
+    <% end %>
   </table>
 </div>

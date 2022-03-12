@@ -5,48 +5,40 @@ class Public::OrdersController < ApplicationController
   end
 
   # 購入を確定します
-def create # Order に情報を保存します
-  @cart_items = current_customer.cart_items.all
-# ログインユーザーのカートアイテムをすべて取り出して cart_items に入れます
-  @order = current_customer.orders.new(order_params)
-# 渡ってきた値を @order に入れます
-  if @order.save
-# ここに至るまでの間にチェックは済ませていますが、念の為IF文で分岐させています
-    @cart_items.each do |cart_item|
-# 取り出したカートアイテムの数繰り返します
-# order_item にも一緒にデータを保存する必要があるのでここで保存します
-      order_detail = OrderDetail.new
-      order_detail.item_id = cart_item.item_id
-      order_detail.order_id = @order.id
-      order_detail.amount = cart_item.amount
-# 購入が完了したらカート情報は削除するのでこちらに保存します
-      order_detail.price = cart_item.item.price
-# カート情報を削除するので item と@の紐付けが切れる前に保存します
-      order_detail.save
-    end
-    @cart_items.destroy_all
-# ユーザーに関連するカートのデータ(購入したデータ)をすべて削除します(カートを空にする)
-  else
+def create
     @order = Order.new(order_params)
-    render :new
-  end
+    @order.customer_id = current_customer.id
+    @order.save
+    @cart_items = current_customer.cart_items
+      if @cart_items.each do |cart_item|
+        order_details = OrderDetail.new
+        order_details.item_id = cart_item.item_id
+        order_details.order_id = @order.id
+        order_details.price = cart_item.item.price
+        order_details.amount = cart_item.amount
+        order_details.save
+       end
+      end
+    @cart_items.destroy_all
+    render :thanx
 end
 
   def confirm
-    @cart_items = current_customer.cart_items.all
-    @order = current_customer.orders.new
-    @order.payment_method = params[:order][:payment_method]
-    if params[:order][:address_number] == "1"
+    @cart_items = current_customer.cart_items
+    @order = Order.new(order_params)
+    if params[:order][:address_option] == "0"
       @order.post_code = current_customer.postal_code
       @order.address = current_customer.address
-      @order.name = current_customer.first_name + current_customer.last_name
-    elsif params[:order][:address_number] == "2"
-      @order.post_code = params[:order][:post_code]
-      @order.address = params[:order][:address]
-      @order.name = params[:order][:name]
-    else
-        render :new
+      @order.name = current_customer.last_name + current_customer.first_name
+    elsif params[:order][:address_option] == "1"
+      address = Address.find(params[:order][:address_id])
+      @order.post_code = address.postal_code
+      @order.address = address.address
+      @order.name = address.name
+    elsif params[:order][:address_option] == "2"
+      @order = current_customer.orders.new(order_params)
     end
+    @order.postage = 800
   end
 
 
@@ -56,8 +48,9 @@ end
 
 
   def index
-   @order_details = OrderDetail.all
-   @orders = current_customer.orders.all
+    @orders = current_customer.orders.all
+    @order_details = OrderDetail.all
+   
   end
 
   def show

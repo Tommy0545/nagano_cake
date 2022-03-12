@@ -23,6 +23,7 @@ before_action :authenticate_customer!
   def update
     @cart_item = CartItem.find(params[:id])
     @cart_item.update(amount: params[:amount])
+    @cart_items = current_customer.cart_items
     redirect_to public_cart_items_path
   end
 

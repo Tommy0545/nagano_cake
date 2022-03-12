@@ -1,30 +1,32 @@
 class Admin::OrdersController < ApplicationController
      before_action :authenticate_admin!
-  
-  
   def index
-   if params[:customer_id]
-     @orders = Order.where(customer_id: params[:customer_id])
-   else
-     @orders = Order.all.order(created_at: :desc)
-   end
-  end
-
+      @orders = Order.page(params[:page])
+      
+  end 
+  
   def show
     @order = Order.find(params[:id])
-    @order.postage = 800
+   
   end
 
   def update
     @order = Order.find(params[:id])
-    if @order.update(order_params)
+    @order_details = @order.order_details
+    @order.update(order_params)
+    if @order.status == "payment_confirmation"
+      @order.order_details.each do |order_detail|
+        order_detail.making_status = "production_pending"
+        order_detail.save
+      end
     end
-    redirect_to admin_order_path(@order)
+    redirect_to admin_order_path(@order.id)
   end
+
 
   private
 
   def order_params
-    params.require(:order).permit(:status)
+    params.require(:order).permit(:order_id,:status)
   end
 end
