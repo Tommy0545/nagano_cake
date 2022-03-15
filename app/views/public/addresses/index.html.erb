@@ -15,19 +15,19 @@
     </div>
   
     <div class="my-4">
-      <span class="mx-5"><%= f.label :address,"住所" %></span>
+      <span class="ml-5 mr-8"><%= f.label :address,"住所" %></span>
       <%= f.text_area :address %>
     </div>
   
     <div class="my-4">
-      <span class="mx-5"><%= f.label :name,"宛名"%></span>
+      <span class="ml-5 mr-8"><%= f.label :name,"宛名"%></span>
       <%= f.text_field :name %>
-      <%= f.submit "新規登録", class: 'btn btn-primary' %>
+      <%= f.submit "新規登録", class: 'btn btn-success' %>
     </div>
   <% end %>
 
   <table class="table table-bordered">
-    <thead>
+    <thead class="table-secondary">
       <tr>
         <th>郵便番号</th>
         <th>住所</th>
@@ -36,17 +36,17 @@
       </tr>
     </thead>
     <% @addresses.each do |address| %>
-      <tbody>
+     <tbody>
         <tr>
           <td><%= address.postal_code %></td>
           <td><%= address.address %></td>
           <td><%= address.name %></td>
           <td>
           <%= link_to "編集する" ,edit_public_address_path(address.id), class: 'btn btn-primary' %>
-          <%= link_to "削除する" ,public_addresses_destroy_path(address.id) ,method: :delete, class: 'btn btn-primary'  %>
+          <%= link_to "削除する" ,public_addresses_destroy_path(address.id) ,method: :delete, class: 'btn btn-danger'  %>
           </td>
         </tr>
-      </tbody>
+     </tbody>
     <% end %>
   </table>
 </div>

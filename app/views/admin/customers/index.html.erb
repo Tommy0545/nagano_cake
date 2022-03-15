@@ -1,6 +1,7 @@
-<h3 class="m-5">会員一覧</h3>
- <table class="table table-hover table-inverse">
-    <thead>
+<div class="container">
+<h4 class="my-3">会員一覧</h4>
+ <table class="table table-bordered">
+    <thead class="table-secondary">
     <tr>
       <th>会員ID</th>
       <th>氏名</th>
@@ -8,9 +9,10 @@
       <th>ステータス</th>
     </tr>
     </thead>
-    <% @customers.each do |customer| %>
-     <tbody>
+    
+     <tbody class="my-3 mx-4">
       <tr>
+       <% @customers.each do |customer| %>
         <td>
           <%= customer.id %>
         </td>
@@ -25,15 +27,16 @@
     
         <td>
        <% if customer.is_deleted == false %>
-        有効
+        <p class="text-success">有効</p>
        <% else %>
-        無効
+        <p class="text-muted">無効</p>
        <% end %>
         </td>
       </tr>
+      <% end %>
      </tbody>
-    <% end %>
- </table>
+    </table>
+  </div>
 
  <div class="mx-auto" style="width: 200px;">
    <%= paginate @customers %>

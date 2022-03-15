@@ -6,7 +6,7 @@ class Public::SessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource)
     flash[:notice] = "ログインに成功しました。"
-    public_customers_my_page_path
+    public_root_path
   end
 
   def after_sign_out_path_for(resource)

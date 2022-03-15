@@ -1,17 +1,32 @@
-<div class="col-md-3 m-5">
-      <%= image_tag @item.image,size:"200×200" %>
-</div>
-<div class="col-md-3 m-5">
-    <div class="m-3"><%= @item.name %></div>
-    <div class="m-3"><%= @item.introduction %></div>
-    <div class="mx-5">￥<%= @item.price.to_s(:delimited) %>(税込)</div>
-    <div class="m-3">
-        <% if @item.is_active == TRUE %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-5">
+      <%= image_tag @item.image,size:"350x300" %>
+    </div>
+    <div class="col-lg-7">
+     <table class="table table-borderless">
+      <tbody>
+        <tr>
+          <th class="h5"><b><%= @item.name %></b></th>
+        </tr>
+        <tr>
+          <td><%= @item.introduction %></td>
+        </tr>
+        <tr>
+          <td><b>¥<%= @item.with_tax_price.to_s(:delimited) %></b>(税込)</td>
+        </tr>
+      </tbody>
+     </table>
+        
+        <% if @item.is_active == true %>
           <%= form_with model: @cart_items, url: public_cart_items_path do |f| %>
             <%= f.select :amount, *[1..10] %>
             <%= f.hidden_field :item_id, :value => @item.id %>
-            <%= f.submit "カートに入れる" %>
+            <%= f.submit "カートに入れる", class: " btn btn-sm btn-success" %>
             <% end %>
+        <% else %>    
+            <p class="text-danger">販売停止中</p>    
         <% end %>
     </div>
-</div>
+  </div>
+ </div>

@@ -1,5 +1,9 @@
 class Public::CartItemsController < ApplicationController
-before_action :authenticate_customer!
+ before_action :authenticate_customer!
+  def index
+    @cart_items = current_customer.cart_items
+    @total = @cart_items.inject(0) { |sum, item| sum + item.subtotal }
+  end
 
   def create
     @cart_item = CartItem.new(cart_item_params)
@@ -15,10 +19,7 @@ before_action :authenticate_customer!
     end
   end
 
-  def index
-    @cart_items = current_customer.cart_items
-    @total = @cart_items.inject(0) { |sum, item| sum + item.subtotal }
-  end
+  
 
   def update
     @cart_item = CartItem.find(params[:id])

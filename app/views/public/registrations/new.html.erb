@@ -1,54 +1,88 @@
-<h3>新規会員登録</h3>
-
-<%= flash[:notice] %>
-
-<%= form_with model: @customer, url: customer_registration_path, local: true do |f| %>
-
-    <div><%= f.label :名前 %></div>
-    
-    <div><%= f.label :last_name, "(姓)" %></div>
-    <div><%= f.text_field :last_name %></div>
-    
-    <div><%= f.label :first_name, "(名)" %></div>
-    <div><%= f.text_field :first_name %></div>
-
-    <div><%= f.label :フリガナ %></div>
-    <div><%= f.label :last_name_kana, "(セイ)" %></div>
-    <div><%= f.text_field :last_name_kana %></div>
-    
-    <div><%= f.label :first_name_kana,"(メイ)" %></div>
-    <div><%= f.text_field :first_name_kana %></div>
-
-    <div><%= f.label :email, "メールアドレス" %></div>
-    <div><%= f.email_field :email, autofocus: true, autocomplete: "email" %></div>
-
-    <div><%= f.label :postal_code, "郵便番号(ハイフンなし)" %></div>
-    <div><%= f.text_field :postal_code %></div>
-
-    <div><%= f.label :address, "住所" %></div>
-    <div><%= f.text_field :address %></div>
+<div class="container">
+  <h4>新規登録</h4>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   
-    <div><%= f.label :telephone_number, "電話番号(ハイフンなし)" %></div>
-    <div><%= f.text_field :telephone_number %></div>
 
-
-  <div class="field">
-    <%= f.label :"パスワード" %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> 文字以上)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "パスワード(確認用)" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "新規登録" %>
-  </div>
+<table class="table table-sm">
+  <tbody class="table table-borderless">
+    <tr>
+      <div class="field">
+        <th style="width :20%"><%= f.label :"名前" %></th>
+        <td style="width :10%">（姓）</td>
+        <td style="width :30%"><%= f.text_field :last_name, class:"form-control w20" %></td>
+        <td style="width :10%">（名）</td>
+        <td style="width :30%"><%= f.text_field :first_name, class:"form-control w20" %></td>
+      </div>
+    </tr>
+    <tr>
+      <div class="field">
+        <th><%= f.label "フリガナ" %></th>
+        <td>（セイ）</td>
+        <td><%= f.text_field :last_name_kana, class:"form-control w20" %></td>
+        <td>（メイ）</td>
+        <td><%= f.text_field :first_name_kana, class:"form-control w20" %></td>
+      </div>
+    </tr>
+    <tr>
+      <div class="field">
+        <th><%= f.label "メールアドレス" %></th>
+        <td></td>
+        <td><%= f.email_field :email, autocomplete: "email", class:"form-control w40" %></td>
+      </div>
+    </tr>
+    <tr>
+      <div class="feild">
+        <th><%= f.label "郵便番号（ハイフンなし）" %></th>
+        <td></td>
+        <td><%= f.text_field :postal_code, class:"form-control w20" %></td>
+      </div>
+    </tr>
+    <tr>
+      <div class="feild">
+        <th><%= f.label "住所" %></th>
+        <td></td>
+        <td><%= f.text_field :address, class:"form-control w80" %></td>
+      </div>
+    </tr>
+    <tr>
+      <div class="feild">
+        <th><%= f.label "電話番号（ハイフンなし）" %></th>
+        <td></td>
+        <td><%= f.text_field :telephone_number, class:"form-control w20" %></td>
+      </div>
+    </tr>
+    <tr>
+      <div class="field">
+        <th>
+          <%= f.label "パスワード" %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %>文字以上)</em>
+          <% end %>
+        </th>
+        <td></td>
+        <td><%= f.password_field :password, autocomplete: "new-password" %></td>
+      </div>
+    </tr>
+    <tr>
+      <div class="field">
+        <th><%= f.label "パスワード（確認用）" %></th>
+        <td></td>
+        <td><%= f.password_field :password_confirmation, autocomplete: "new-password" %></td>
+      </div>
+    </tr>
+    <tr>
+      <th></th>
+      <td></td>
+      <td>
+        <div class="actions">
+          <%= f.submit "新規登録", class: "btn btn-success" %>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
 <% end %>
 
-<h3 class="mt-5">既に登録済みの方</h3>
-<p><%= link_to "こちら",new_customer_session_path %></u>　からログインしてください。</p>
+<h4>既に登録済みの方</h4>
+ <span class="mx-3"><%= link_to "こちら", new_customer_session_path %></span>からログインしてください。
+</div>

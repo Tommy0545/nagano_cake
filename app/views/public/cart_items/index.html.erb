@@ -4,7 +4,7 @@
       <h3>ショッピングカート</h3>
     </div>
     <div class="col mb-3 text-right">
-      <%= link_to "カートを空にする", public_destroy_all_path, method: :DELETE , class: "btn btn-danger" %>
+      <%= link_to "カートを空にする", public_destroy_all_path, method: :delete , class: "btn btn-danger" %>
     </div>
   </div>
   <div class="row">
@@ -23,18 +23,24 @@
           <% @cart_items.each do |cart_item| %>
             <tr>
               <td>
-                <%= image_tag cart_item.item.image,size:"50×50" %>
+                <%= image_tag cart_item.item.image, size: "60x50" %>
                 <%= cart_item.item.name %>
               </td>
-              <td><%= cart_item.item.with_tax_price.to_s(:delimited) %></td>
               <td>
-                <%= form_with model:@cart_item, url:public_cart_item_path(cart_item.id), method: :PATCH, local: true do |f| %>
-                  <%= f.select :amount, *[1..10], {selected: cart_item.amount} %>
-                  <%= f.submit "変更", class: "btn btn-success" %>
-                <% end %>
+                <%= cart_item.item.with_tax_price.to_s(:delimited) %>
               </td>
-              <td><%= cart_item.subtotal.to_s(:delimited) %></td>
-              <td><%= link_to "削除する", public_cart_item_path(cart_item.id), method: :DELETE , class: "btn btn-danger" %></td>
+              <%= form_with model:@cart_item, url: public_cart_item_path(cart_item.id), method: :patch, local: true do |f| %>
+              <td>  
+                  <%= f.select :amount, *[1..10], selected: cart_item.amount %>
+                  <%= f.submit "変更", class: "btn btn-success" %>
+              </td>
+              <% end %>
+              <td>
+                <%= cart_item.subtotal.to_s(:delimited) %>
+              </td>
+              <td>
+                <%= link_to "削除する", public_cart_item_path(cart_item.id), method: :DELETE , class: "btn btn-danger" %>
+              </td>
             </tr>
           <% end %>
         </tbody>
@@ -46,16 +52,21 @@
     <div>
       <table class="table">
         <tbody>
-          <th>合計金額</th>
-          <td><%= @total.round.to_s(:delimited) %></td>
+          <th>
+            合計金額
+          </th>
+          <td>
+            <%= @total.round.to_s(:delimited) %>
+          </td>
         </tbody>
       </table>
     </div>
   </div>
   </br>
-  <div class="row">
-    <div class="mx-auto">
-      <%= link_to "情報入力に進む",new_public_order_path, class: "btn-btn-primary" %>
+    <div class="text-center">
+      <% if @total == 0 %>
+      <% else %>
+        <%= link_to '情報入力に進む', new_public_order_path, class: "btn btn-success btn-lg" %>
+      <% end %>
     </div>
-  </div>
 </div>

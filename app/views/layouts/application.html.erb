@@ -13,36 +13,37 @@
     <header class="shadow-sm">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <h2 class="rounded border border-primary">LOGO</h2>
+          <h2 class="rounded border border-secondary">LOGO</h2>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
+              
             <% if admin_signed_in? %>
-              <li class="nav-item m-1 rounded border border-primary"><%= link_to '商品一覧', admin_items_path, class: 'nav-link text-dark' %></li>
-              <li class="nav-item m-1 rounded border border-primary"><%= link_to '会員一覧', admin_customers_path, class: 'nav-link text-dark' %></li>
-              <li class="nav-item m-1 rounded border border-primary"><%= link_to '注文履歴一覧', admin_orders_path(:id), class: 'nav-link text-dark' %></li>
-              <li class="nav-item m-1 rounded border border-primary"><%= link_to 'ジャンル一覧', admin_genres_path, class: 'nav-link text-dark' %></li>
-              <li class="nav-item m-1 rounded border border-primary"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' %></li>
+              <li class="nav-item m-1 rounded border border-muted"><%= link_to '商品一覧', admin_items_path, class: 'nav-link text-dark' %></li>
+              <li class="nav-item m-1 rounded border border-muted"><%= link_to '会員一覧', admin_customers_path, class: 'nav-link text-dark' %></li>
+              <li class="nav-item m-1 rounded border border-muted"><%= link_to '注文履歴一覧', admin_orders_path(:id), class: 'nav-link text-dark' %></li>
+              <li class="nav-item m-1 rounded border border-muted"><%= link_to 'ジャンル一覧', admin_genres_path, class: 'nav-link text-dark' %></li>
+              <li class="nav-item m-1 rounded border border-muted"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' %></li>
             <% elsif customer_signed_in? %>
-              <li class="nav-item m-1 rounded border border-primary"><%= link_to 'マイページ', public_customers_my_page_path, class: 'nav-link text-dark' %></li>
-              <li class="nav-item m-1 rounded border border-primary"><%= link_to '商品一覧', public_items_path, class: 'nav-link text-dark' %></li>
-              <li class="nav-item m-1 rounded border border-primary"><%= link_to 'カート', public_cart_items_path, class: 'nav-link text-dark' %></li>
-              <li class="nav-item m-1 rounded border border-primary"><%= link_to 'ログアウト', destroy_customer_session_path, method: :delete, class: 'nav-link text-dark' %></li>
+              <li class="nav-item m-1 rounded border border-muted"><%= link_to 'マイページ', public_customers_my_page_path, class: 'nav-link text-dark' %></li>
+              <li class="nav-item m-1 rounded border border-muted"><%= link_to '商品一覧', public_items_path, class: 'nav-link text-dark' %></li>
+              <li class="nav-item m-1 rounded border border-muted"><%= link_to 'カート', public_cart_items_path, class: 'nav-link text-dark' %></li>
+              <li class="nav-item m-1 rounded border border-muted"><%= link_to 'ログアウト', destroy_customer_session_path, method: :delete, class: 'nav-link text-dark' %></li>
             <% else %>
-              <li class="nav-item m-1 rounded border border-primary"><%= link_to 'About', public_about_path, class: 'nav-link text-dark' %></li>
-              <li class="nav-item m-1 rounded border border-primary"><%= link_to '商品一覧', public_items_path, class: 'nav-link text-dark' %></li>
-              <li class="nav-item m-1 rounded border border-primary"><%= link_to '新規登録',new_customer_registration_path, class: 'nav-link text-dark' %></li>
-              <li class="nav-item m-1 rounded border border-primary"><%= link_to 'ログイン', new_customer_session_path, class: 'nav-link text-dark' %></li>
+              <li class="nav-item m-1 rounded border border-muted"><%= link_to 'About', public_about_path, class: 'nav-link text-dark' %></li>
+              <li class="nav-item m-1 rounded border border-muted"><%= link_to '商品一覧', public_items_path, class: 'nav-link text-dark' %></li>
+              <li class="nav-item m-1 rounded border border-muted"><%= link_to '新規登録',new_customer_registration_path, class: 'nav-link text-dark' %></li>
+              <li class="nav-item m-1 rounded border border-muted"><%= link_to 'ログイン', new_customer_session_path, class: 'nav-link text-dark' %></li>
             <% end %>
             </ul>
           </div>
         </div>
     </header>
-    <main class="mb-auto">
+    <main class="container mt-5">
     <%= yield %>
-    </main>
-    <footer><div>
-        Copyright © 2021 DMM WebCamp:Glass_Tech-Nagano_Cake All Rights Reserved.
-      </div>
-    </footer>
+  </main>
+
+　<footer class="mt-auto py-3 bg-dark">
+　  <div class="text-center text-white">Sweets make you happy</div>
+　</footer>
   </body>
 </html>

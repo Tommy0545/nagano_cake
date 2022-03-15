@@ -32,13 +32,13 @@
   <div class="my-4">
     <span class="mx-5">会員ステータス</span>
       <% if @customer.is_deleted == false %>
-        有効
+        <span class="text-success">有効</span>
       <% else %>
-        退会
+        <span class="text-muted">退会</span>
       <% end %>
   </div>
 
 <div class="mx-5 my-5">
-    <%= link_to "編集する", edit_admin_customer_path(@customer.id), class: 'btn btn-primary' %>
+    <%= link_to "編集する", edit_admin_customer_path(@customer.id), class: 'btn btn-success' %>
     <%= link_to "注文履歴一覧を見る", admin_orders_path, class: 'btn btn-primary' %>
 </div>

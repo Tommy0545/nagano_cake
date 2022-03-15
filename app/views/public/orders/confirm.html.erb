@@ -54,10 +54,10 @@
       <%= form_with model:[:public,@order], url: public_orders_path, method: :post, local:true do |f| %>
         <%= f.hidden_field :postage, value:@order.postage %>
         <%= f.hidden_field :total_payment, value:@cart_items.sum(&:subtotal) + @order.postage %>
-        <h4 class="m-3">支払方法</h4>
+        <h4 class="m-3"><b>支払方法</b></h4>
         <%= f.hidden_field :payment_method, value:@order.payment_method %>
         <div class="m-3"><%= @order.payment_method_i18n %></div>
-        <h4 class="m-3">お届け先</h4>
+        <h4 class="m-3"><b>お届け先</b></h4>
         <%= f.hidden_field :post_code, value:@order.post_code %>
         <%= f.hidden_field :address, value:@order.address %>
         <%= f.hidden_field :name, value:@order.name %>

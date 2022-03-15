@@ -1,6 +1,6 @@
 <h3 class="m-5">注文履歴詳細</h3>
 <div class="container px-5 px-sm-0">
-  <div class="row">
+  <div >
     <div class="col-8 ml-3">
       <span class="m-3"><b>注文情報</b></span>
       <table class="table table-bordered m-3">
@@ -37,7 +37,7 @@
  <table class="table table-hover table-inverse">
   <thead>
   </thead>
-    <tbody>
+    <tbody >
       <p><b>請求情報</b></p>
          <tr>
            <td>
@@ -59,9 +59,10 @@
    </tbody>
  </table>
 </div>
-
+<span><b>注文内容</b></span>
  <table class="table table-hover table-inverse">
   <thead>
+   
      <tr>
       <th>商品</th>
       <th>単価（税込）</th>
@@ -71,10 +72,9 @@
   </thead>
 
   <tbody>
-   <p><b>注文内容</b></p>
-
+   
    <% @order.order_details.each do |order_detail| %>
-         <tr>
+        <tr>
              <td> <%= order_detail.item.name %> </td>
              <td><%= order_detail.item.with_tax_price.to_s(:delimited)%> </td>
              <td><%= order_detail.amount %></td>
@@ -83,8 +83,5 @@
      <% end %>
    </tbody>
  </table>
-
-
+ </div>
 </div>
-</div>
-</main>
